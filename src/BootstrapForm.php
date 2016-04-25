@@ -544,7 +544,7 @@ class BootstrapForm
      */
     public function input($type, $name, $label = null, $value = null, array $options = [])
     {
-        $label = $this->getLabelTitle($label, $name);
+        $label = ($label === false) ? $label : $this->getLabelTitle($label, $name);
 
         $options = $this->getFieldOptions($options, $name);
         $inputElement = $type === 'password' ? $this->form->password($name, $options) : $this->form->{$type}($name, $value, $options);
@@ -552,7 +552,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
-        return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
+        return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement) : $this->getFormGroup($name, $wrapperElement);
     }
     
     /**
@@ -580,7 +580,7 @@ class BootstrapForm
      */
     public function select($name, $label = null, $list = [], $selected = null, array $options = [])
     {
-        $label = $this->getLabelTitle($label, $name);
+        $label = ($label === false) ? $label : $this->getLabelTitle($label, $name);
 
         $options = $this->getFieldOptions($options, $name);
         $inputElement = $this->form->select($name, $list, $selected, $options);
@@ -588,7 +588,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
-        return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
+        return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement) : $this->getFormGroup($name, $wrapperElement);
     }
 
     /**
@@ -601,8 +601,8 @@ class BootstrapForm
      */
     protected function getLabelTitle($label, $name)
     {
-        if (is_null($label) && Lang::has("forms.{$name}")) {
-            return Lang::get("forms.{$name}");
+        if (is_null($label) && Lang::has("form.{$name}")) {
+            return Lang::get("form.{$name}");
         }
 
         return $label ?: Str::title($name);
