@@ -1,6 +1,6 @@
 <?php
 
-use Watson\BootstrapForm\Type;
+use Jor3l\BootstrapForm\Type;
 
 return [
 
