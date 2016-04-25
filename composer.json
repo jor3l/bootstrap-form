@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Watson\\BootstrapForm\\": "src/"
+            "Jor3l\\BootstrapForm\\": "src/"
         }
     },
     "minimum-stability": "dev"
