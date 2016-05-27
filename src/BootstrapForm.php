@@ -232,9 +232,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function text($name, $label = null, $value = null, array $options = [])
+    public function text($name, $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('text', $name, $label, $value, $options);
+        return $this->input('text', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -246,9 +246,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function email($name = 'email', $label = null, $value = null, array $options = [])
+    public function email($name = 'email', $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('email', $name, $label, $value, $options);
+        return $this->input('email', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -260,9 +260,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function url($name, $label = null, $value = null, array $options = [])
+    public function url($name, $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('url', $name, $label, $value, $options);
+        return $this->input('url', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -274,9 +274,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function tel($name, $label = null, $value = null, array $options = [])
+    public function tel($name, $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('tel', $name, $label, $value, $options);
+        return $this->input('tel', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -288,9 +288,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function number($name, $label = null, $value = null, array $options = [])
+    public function number($name, $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('number', $name, $label, $value, $options);
+        return $this->input('number', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -302,9 +302,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function date($name, $label = null, $value = null, array $options = [])
+    public function date($name, $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('date', $name, $label, $value, $options);
+        return $this->input('date', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -316,9 +316,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function textarea($name, $label = null, $value = null, array $options = [])
+    public function textarea($name, $label = null, $value = null, array $options = [], $extra = null)
     {
-        return $this->input('textarea', $name, $label, $value, $options);
+        return $this->input('textarea', $name, $label, $value, $options, $extra);
     }
 
     /**
@@ -329,9 +329,9 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function password($name = 'password', $label = null, array $options = [])
+    public function password($name = 'password', $label = null, array $options = [], $extra = null)
     {
-        return $this->input('password', $name, $label, null, $options);
+        return $this->input('password', $name, $label, null, $options, $extra);
     }
 
     /**
@@ -344,14 +344,14 @@ class BootstrapForm
      * @param  array    $options
      * @return string
      */
-    public function checkbox($name, $label = null, $value = 1, $checked = null, array $options = [])
+    public function checkbox($name, $label = null, $value = 1, $checked = null, array $options = [], $extra = null)
     {
         $inputElement = $this->checkboxElement($name, $label, $value, $checked, false, $options);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => implode(' ', [$this->getLeftColumnOffsetClass(), $this->getRightColumnClass()])] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . '</div>';
 
-        return $this->getFormGroup(null, $wrapperElement);
+        return $this->getFormGroup(null, $wrapperElement, $extra);
     }
 
     /**
@@ -388,7 +388,7 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function checkboxes($name, $label = null, $choices = [], $checkedValues = [], $inline = false, array $options = [])
+    public function checkboxes($name, $label = null, $choices = [], $checkedValues = [], $inline = false, array $options = [], $extra = null)
     {
         $elements = '';
 
@@ -401,7 +401,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $elements . $this->getFieldError($name) . '</div>';
 
-        return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
+        return $this->getFormGroupWithLabel($name, $label, $wrapperElement, $extra);
     }
 
     /**
@@ -414,14 +414,14 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function radio($name, $label = null, $value = null, $checked = null, array $options = [])
+    public function radio($name, $label = null, $value = null, $checked = null, array $options = [], $extra = null)
     {
         $inputElement = $this->radioElement($name, $label, $value, $checked, false, $options);
 
         $wrapperOptions = $this->isHorizontal() ? ['class' => implode(' ', [$this->getLeftColumnOffsetClass(), $this->getRightColumnClass()])] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . '</div>';
 
-        return $this->getFormGroup(null, $wrapperElement);
+        return $this->getFormGroup(null, $wrapperElement, $extra);
     }
 
     /**
@@ -459,7 +459,7 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function radios($name, $label = null, $choices = [], $checkedValue = null, $inline = false, array $options = [])
+    public function radios($name, $label = null, $choices = [], $checkedValue = null, $inline = false, array $options = [], $extra = null)
     {
         $elements = '';
 
@@ -472,7 +472,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $elements . $this->getFieldError($name) . '</div>';
 
-        return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
+        return $this->getFormGroupWithLabel($name, $label, $wrapperElement, $extra);
     }
 
     /**
@@ -517,7 +517,7 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function file($name, $label = null, array $options = [])
+    public function file($name, $label = null, array $options = [], $extra = null)
     {
         $label = $this->getLabelTitle($label, $name);
 
@@ -529,7 +529,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
-        return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
+        return $this->getFormGroupWithLabel($name, $label, $wrapperElement, $extra);
     }
 
     /**
@@ -542,7 +542,7 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function input($type, $name, $label = null, $value = null, array $options = [])
+    public function input($type, $name, $label = null, $value = null, array $options = [], $extra = null)
     {
         $label = ($label === false) ? $label : $this->getLabelTitle($label, $name);
 
@@ -552,7 +552,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
-        return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement) : $this->getFormGroup($name, $wrapperElement);
+        return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement, $extra) : $this->getFormGroup($name, $wrapperElement, $extra);
     }
     
     /**
@@ -578,7 +578,7 @@ class BootstrapForm
      * @param  array   $options
      * @return string
      */
-    public function select($name, $label = null, $list = [], $selected = null, array $options = [])
+    public function select($name, $label = null, $list = [], $selected = null, array $options = [], $extra = null)
     {
         $label = ($label === false) ? $label : $this->getLabelTitle($label, $name);
 
@@ -588,7 +588,7 @@ class BootstrapForm
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
-        return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement) : $this->getFormGroup($name, $wrapperElement);
+        return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement, $extra) : $this->getFormGroup($name, $wrapperElement, $extra);
     }
 
     /**
@@ -616,10 +616,11 @@ class BootstrapForm
      * @param  string  $element
      * @return string
      */
-    protected function getFormGroupWithLabel($name, $value, $element)
+    protected function getFormGroupWithLabel($name, $value, $element, $extra)
     {
         $options = $this->getFormGroupOptions($name);
-
+        $element = substr($element, 0, strlen($element) - 6) . $extra . substr($element, -6);
+        
         return '<div' . $this->html->attributes($options) . '>' . $this->label($name, $value) . $element . '</div>';
     }
 
@@ -630,10 +631,10 @@ class BootstrapForm
      * @param  string  $element
      * @return string
      */
-    public function getFormGroup($name = null, $element)
+    public function getFormGroup($name = null, $element, $extra)
     {
         $options = $this->getFormGroupOptions($name);
-
+        $element = substr($element, 0, strlen($element) - 5) . $extra . substr($element, -5);
         return '<div' . $this->html->attributes($options) . '>' . $element . '</div>';
     }
 
