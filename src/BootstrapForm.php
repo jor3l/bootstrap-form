@@ -634,7 +634,7 @@ class BootstrapForm
     public function getFormGroup($name = null, $element, $extra)
     {
         $options = $this->getFormGroupOptions($name);
-        $element = substr($element, 0, strlen($element) - 5) . $extra . substr($element, -5);
+        $element = substr($element, 0, strlen($element) - 6) . $extra . substr($element, -6);
         return '<div' . $this->html->attributes($options) . '>' . $element . '</div>';
     }
 
