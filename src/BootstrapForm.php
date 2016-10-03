@@ -616,7 +616,7 @@ class BootstrapForm
      * @param  string  $element
      * @return string
      */
-    protected function getFormGroupWithLabel($name, $value, $element, $extra)
+    protected function getFormGroupWithLabel($name, $value, $element, $extra = null)
     {
         $options = $this->getFormGroupOptions($name);
         $element = substr($element, 0, strlen($element) - 6) . $extra . substr($element, -6);
@@ -631,7 +631,7 @@ class BootstrapForm
      * @param  string  $element
      * @return string
      */
-    public function getFormGroup($name = null, $element, $extra)
+    public function getFormGroup($name = null, $element, $extra = null)
     {
         $options = $this->getFormGroupOptions($name);
         $element = substr($element, 0, strlen($element) - 6) . $extra . substr($element, -6);
