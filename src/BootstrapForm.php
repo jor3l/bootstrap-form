@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Jor3l\BootstrapForm;
 
@@ -106,8 +106,8 @@ class BootstrapForm
         }
 
         array_forget($options, [
-            'left_column_class', 
-            'left_column_offset_class', 
+            'left_column_class',
+            'left_column_offset_class',
             'right_column_class'
         ]);
 
@@ -142,23 +142,27 @@ class BootstrapForm
     {
         $model = $options['model'];
 
+        if(!isset($options['key'])) {
+          $options['key'] = null;
+        }
+
         // If the form is passed a model, we'll use the update route to update
         // the model using the PUT method.
         if (!is_null($options['model']) && $options['model']->exists) {
             $route = Str::contains($options['update'], '@') ? 'action' : 'route';
 
-            $options[$route] = [$options['update'], $options['model']->getRouteKey()];
+            $options[$route] = [$options['update'], $options['key']];
             $options['method'] = 'PUT';
         } else {
             // Otherwise, we're storing a brand new model using the POST method.
             $route = Str::contains($options['store'], '@') ? 'action' : 'route';
 
-            $options[$route] = $options['store'];
+            $options[$route] = [$options['store'], $options['key']];
             $options['method'] = 'POST';
         }
 
         // Forget the routes provided to the input.
-        array_forget($options, ['model', 'update', 'store']);
+        array_forget($options, ['model', 'update', 'store', 'key']);
 
         return $this->form->model($model, $options);
     }
@@ -217,7 +221,7 @@ class BootstrapForm
         $label = $this->getLabelTitle($label, $name);
         $inputElement = '<p' . $this->html->attributes($options) . '>' . e($value) . '</p>';
 
-        $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : []; 
+        $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
         return $this->getFormGroupWithLabel($name, $label, $wrapperElement);
@@ -431,7 +435,7 @@ class BootstrapForm
      * @param  string  $label
      * @param  string  $value
      * @param  bool    $checked
-     * @param  bool    $inline   
+     * @param  bool    $inline
      * @param  array   $options
      * @return string
      */
@@ -548,16 +552,16 @@ class BootstrapForm
 
         $options = $this->getFieldOptions($options, $name);
         $inputElement = $type === 'password' ? $this->form->password($name, $options) : $this->form->{$type}($name, $value, $options);
-        
+
         $wrapperOptions = $this->isHorizontal() ? ['class' => $this->getRightColumnClass()] : [];
         $wrapperElement = '<div' . $this->html->attributes($wrapperOptions) . '>' . $inputElement . $this->getFieldError($name) . '</div>';
 
         return ($label) ? $this->getFormGroupWithLabel($name, $label, $wrapperElement, $extra) : $this->getFormGroup($name, $wrapperElement, $extra);
     }
-    
+
     /**
      * Create a hidden field.
-     * 
+     *
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
@@ -616,11 +620,11 @@ class BootstrapForm
      * @param  string  $element
      * @return string
      */
-    protected function getFormGroupWithLabel($name, $value, $element, $extra = null)
+    protected function getFormGroupWithLabel($name, $value, $element, $extra)
     {
         $options = $this->getFormGroupOptions($name);
         $element = substr($element, 0, strlen($element) - 6) . $extra . substr($element, -6);
-        
+
         return '<div' . $this->html->attributes($options) . '>' . $this->label($name, $value) . $element . '</div>';
     }
 
@@ -706,7 +710,7 @@ class BootstrapForm
         return array_merge(['class' => trim($class)], $options);
     }
 
-    /** 
+    /**
      * Get the form type.
      *
      * @return string
@@ -726,7 +730,7 @@ class BootstrapForm
         return $this->getType() === Type::HORIZONTAL;
     }
 
-    /** 
+    /**
      * Set the form type.
      *
      * @param  string  $type
@@ -801,7 +805,7 @@ class BootstrapForm
     }
 
     /**
-     * Flatten arrayed field names to work with the validator, including removing "[]", 
+     * Flatten arrayed field names to work with the validator, including removing "[]",
      * and converting nested arrays like "foo[bar][baz]" to "foo.bar.baz".
      *
      * @param  string  $field
