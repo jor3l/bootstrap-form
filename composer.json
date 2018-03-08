@@ -25,5 +25,12 @@
             "Jor3l\\BootstrapForm\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jor3l\\BootstrapForm\\BootstrapFormServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev"
 }
