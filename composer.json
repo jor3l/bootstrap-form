@@ -29,7 +29,10 @@
         "laravel": {
             "providers": [
                 "Jor3l\\BootstrapForm\\BootstrapFormServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "BootForm": "Jor3l\\BootstrapForm\\Facades\\BootstrapForm"
+            }
         }
     },
     "minimum-stability": "dev"
