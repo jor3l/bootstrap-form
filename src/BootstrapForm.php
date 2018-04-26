@@ -143,7 +143,7 @@ class BootstrapForm
         $model = $options['model'];
 
         if(!isset($options['key'])) {
-          $options['key'] = null;
+          $options['key'] = (isset($model['id'])) ? $model['id'] : null;
         }
 
         // If the form is passed a model, we'll use the update route to update
