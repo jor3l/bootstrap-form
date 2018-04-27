@@ -652,7 +652,7 @@ class BootstrapForm
      */
     protected function getFormGroupOptions($name = null, array $options = [])
     {
-        $class = 'form-group';
+        $class = 'form-group row ml-3 mr-3';
 
         if ($name) {
             $class .= ' ' . $this->getFieldErrorClass($name);
@@ -702,7 +702,7 @@ class BootstrapForm
      */
     protected function getLabelOptions(array $options = [])
     {
-        $class = 'control-label';
+        $class = 'control-label align-self-center';
         if ($this->isHorizontal()) {
             $class .= ' ' . $this->getLeftColumnClass();
         }
